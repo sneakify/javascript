@@ -20,10 +20,8 @@ var secondArg = args[1]
 PLAYLIST_ID_USA = "37i9dQZEVXbLRQDuF5jeBp"
 PLAYLIST_QUERY = 'playlists'
 
-console.log(firstArg)
-console.log(secondArg)
-console.log('https://api.spotify.com/v1/' + firstArg  + secondArg)
-console.log('https://api.spotify.com/v1/' + 'playlists' + '/' + PLAYLIST_ID_USA)
+
+console.log('Querying: https://api.spotify.com/v1/' + 'playlists' + '/' + PLAYLIST_ID_USA)
 
 var client_id = '55e02591acfc48378293825a26b282fa'; // Your client id
 var client_secret = '9c66a923a6aa4c48ac4ea6e3263eb541'; // Your secret
@@ -64,7 +62,6 @@ request.post(authOptions, function(error, response, body) {
       // all individual songs
 
       // we need snapshot id? (primary key?)
-      console.log(body.snapshot_id)
       snap = body.snapshot_id
 
       myObjects = []
