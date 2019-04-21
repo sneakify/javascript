@@ -1,21 +1,19 @@
 /**
- * This is an example of a basic node.js script that performs
- * the Client Credentials oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
+ * This is some starter node.js code provided by Spotify that we modified
+ * to suit our needs. Does the Client Credentials oAuth2 flow to authenticate
+ * against the Spotify Accounts.
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#client_credentials_flow
  */
 
+
+/** try running 'node app.js' to see the list of Songs with Artists listed
+*/
 var request = require('request'); // "Request" library
 
 const args = process.argv.slice(2)
 var firstArg = args[0]
 var secondArg = args[1]
-
-// 'playlists'
-// 'users' '/mathewlee1'
-// 'search?' 'q=tania%20bowra&type=artist'
 
 PLAYLIST_ID_USA = "37i9dQZEVXbLRQDuF5jeBp"
 PLAYLIST_QUERY = 'playlists'
@@ -55,6 +53,11 @@ request.post(authOptions, function(error, response, body) {
       json: true
     };
 
+    /* sick, we got the token so we can do request stuff with it, like
+        make some api requests with our newfound authentication
+    */
+
+    // Do Get to get the songs
     request.get(options, function(error, response, body) {
       // we need tracks (body.tracks)
       tracks = body.tracks
@@ -68,7 +71,6 @@ request.post(authOptions, function(error, response, body) {
 
       counter = 1
       for (var trackObject in items) {
-        // console.log('Hi', trackObject, items[trackObject])
 
         // Look in the object representing the metadata
         // added_at, added_by, is_local, primary_color, track, video_thumbnail
@@ -80,7 +82,7 @@ request.post(authOptions, function(error, response, body) {
         // episode, explicit, external_ids, external_urls, href, id, is_local
         // name, popularity, preview_url, track (T/F), track_number, type, uri
         track = obj.track
-        // console.log('Track', track)
+
         /*
         console.log(
           'The track name is :' , track.name,
@@ -111,7 +113,6 @@ request.post(authOptions, function(error, response, body) {
 
         //console.log('And the album name is :', track.album.name, ':\n and the album id is :', track.album.id)
 
-
         newObject = {
           ranking: counter,
           trackName: track.name,
@@ -137,7 +138,13 @@ request.post(authOptions, function(error, response, body) {
 
       console.log(exampleList)
 
-      /*
+      // ok so now we have the list of objects as myObjects, we would use
+      // the spotify ids and album_ids to fill out more data, such as the
+      // genre (more requests, this time of the search api functionality)
+
+      /*  NON-FUNCTIONAL - once we have the objects, we ant to get the genre of
+                        specific artists/albums, would be another request ...
+
     for (var idx in myObjects) {
       currentObject = myObjects[idx]
       console.log(currentObject)
@@ -160,17 +167,9 @@ request.post(authOptions, function(error, response, body) {
         console.log('Link:', current_link)
       });
     }
-
     */
 
     })
-
-    // ok so now we have the list of objects as myObjects, we can use it to fill
-    // out some more data yaknow
-
-    // sick, we got the token so we can do stuff with it, like ...
-    // make some api requests with our newfound authentication
-
 
   } else {
     console.log('Something Broke - http request to get token went bad')
