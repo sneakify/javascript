@@ -4,6 +4,8 @@
  * against the Spotify Accounts.
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#client_credentials_flow
+
+ https://github.com/sneakify/javascript -- hosted
  */
 
 
